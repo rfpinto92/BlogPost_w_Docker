@@ -1,0 +1,62 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  react-app:
+    container_name: react
+    image: react-app
+    stdin_open: true
+    restart: always
+    ports:
+      - '3000:3000'
+    networks:
+      - Blogger-app
+
+  api-server:
+    image: api-server
+    container_name: api-server
+    ports:
+      - '5000:5000'
+    networks:
+      - Blogger-app
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    hostname: mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - Blogger-app
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    hostname: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+      - Blogger-app
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    networks:
+      - Blogger-app
+
+networks:
+  Blogger-app:
+
+
+volumes:
+  mongo-data:
+    driver: local
