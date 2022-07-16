@@ -1,6 +1,8 @@
 # BlogPost_w_Docker
-BlogPost with NodeJS Express MongoDB
 
+BlogPost with NodeJS Express MongoDB and Google Authentication
+
+Was added the MongoExpress only to check if all data are OK
 
 Notes:
 
